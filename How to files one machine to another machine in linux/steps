@@ -1,1 +1,28 @@
+Here's a step-by-step guide on how to send a .pem key file from one Linux system to another:
 
+Step 1: Copy the .pem File Contents
+1.⁠ ⁠Open the .pem file on your local machine using a text editor (e.g., Notepad, nano, or vim).
+2.⁠ ⁠Copy the entire contents of the .pem file.
+
+Step 2: Create a New File on the Destination System
+1.⁠ ⁠Connect to the destination Linux system using SSH or any other method.
+2.⁠ ⁠Create a new file with a desired name (e.g., "key.pem") using the ⁠ touch ⁠ command: ⁠ touch key.pem ⁠
+
+Step 3: Paste the .pem File Contents
+1.⁠ ⁠Open the newly created file in a text editor (e.g., nano or vim): ⁠ nano key.pem ⁠
+2.⁠ ⁠Paste the contents of the .pem file that you copied earlier.
+3.⁠ ⁠Save and exit the text editor.
+
+Step 4: Set Proper Permissions (Optional)
+1.⁠ ⁠To ensure the .pem file is secure, set the permissions to 600 (owner read/write only): ⁠ chmod 600 key.pem ⁠
+
+Step 5: Use the .pem File for SSH Access
+1.⁠ ⁠Use the .pem file to connect to another system via SSH: ⁠ ssh -i key.pem ubuntu@destination-ip-address ⁠
+
+Make sure to replace "key.pem" with the actual filename and "destination-ip-address" with the IP address of the system you're trying to connect to.
+
+Alternative Method: Copying the .pem File Directly
+If you prefer to copy the .pem file directly without manually copying and pasting its contents, you can use the ⁠ scp ⁠ (Secure Copy) command:
+scp /local/path/to/key.pem ubuntu@destination-ip-address:/remote/path/
+
+Replace ⁠ /local/path/to/key.pem ⁠ with the local path to your .pem file and ⁠ /remote/path/ ⁠ with the desired path on the destination system.
