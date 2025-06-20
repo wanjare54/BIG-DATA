@@ -1,0 +1,44 @@
+
+
+
+1) Free :- Display the command amount of free used memory in the system
+
+command :- {$ free --mega}
+How to check cpu utilization, disk, etc, process
+
+2) command {$top}, {top -u <username>}
+3) If you hide your ip Address or mask you ip
+{$sudo hostname masked}
+then :- bash and hit enter
+
+4) How to check fully Qualified domain name
+{$hostname -f}
+
+What is Netcat or NC
+it is utility is used for just about anything under the sun involving TCP,UDP or UNIX domain scokets
+
+It can open TCP connections send UDP packets listen an arbitory TCP and UDP Ports
+* Communicating Two Machines *
+
+First check the Port Number are Listening or not
+
+--> $netcat -v <hostname> port <port_no>
+ex.
+$netcat -v <hostname> port 22
+
+[ how to check port are listening or not ]
+--> $netstat -tunlp | grep port
+
+[ If you want the Port Listien ]
+
+--> $netcat <hostname> -l <port_number>
+
+Then check other maching port are listening or not
+
+-->$netcat <hostname> port <port_number>
+
+--[ connection succeeded ]
+
+Then you can communicate or chat with two machines.
+
+
