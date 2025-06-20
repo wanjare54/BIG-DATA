@@ -1,1 +1,302 @@
+Understand EC2 Resources
+
+What is EC2?
+Amazon EC2 (Elastic Compute Cloud) provides virtual servers in the AWS cloud.
+
+🔧 3. Physical Resources You Rent on AWS via EC2
+These are the core components that make up your EC2 instance:
+
+Resource	Description
+CPU	Compute power
+HDD	Storage
+NIC	Network Interface
+RAM	Memory
+
+🧠 4. EC2 Virtualization (Hypervisors)
+EC2 instances are managed by hypervisors, which handle resource allocation.
+
+Hypervisor	Note
+Xen	Older
+KVM	Also used
+Nitro	Latest and optimized
+
+💡 5. Threading Concept
+1 thread = 1 vCPU (virtual CPU)
+
+vCPU = Virtual core you are allocated in the cloud.
+
+🧬 6. EC2 Instance Families
+Different EC2 instance types are grouped into families for different workloads.
+
+🔢 Examples:
+t2 – General purpose
+
+c4, c3 – Compute optimized
+
+d1 – Storage optimized
+
+
+Amazon EC2 (Elastic Compute Cloud) provides virtual machines with the following physical resources:
+
+CPU (Compute) – Processing unit.
+
+RAM (Memory) – Temporary working memory.
+
+HDD/SSD (Storage) – File system storage.
+
+NIC (Network Interface Card) – Network connectivity.
+
+🔧 2. Virtualization on EC2
+Amazon EC2 uses hypervisors to manage virtual machines:
+
+Older: Xen, KVM
+
+Modern: Nitro (high performance and security)
+
+Note:
+🧠 1 thread = 1 vCPU (Virtual CPU)
+EC2 instance types (like t2, t3, m5, etc.) are grouped into instance families depending on use cases (e.g., general-purpose, compute-optimized).
+
+-----------------------------------------------
+
+   *Step-by-Step EC2 Launch Process (Part 2)*
+
+📌 Step 1: What is AMI (Amazon Machine Image)?
+An AMI is a pre-configured image that includes:
+
+Operating system (OS)
+
+Application server
+
+Required software to launch an EC2 instance
+
+🧱 AMI is essentially a:
+Configuration file for system setup.
+
+🛍️ Step 2: Selecting an AMI
+📍 You can choose an AMI from:
+✅ AWS Marketplace (official images)
+
+✅ Community AMIs (public shared images)
+
+✅ Custom AMIs (your own snapshots)
+
+🎯 Purpose: Choose AMIs with different OS (e.g., Ubuntu, Amazon Linux, Windows)
+
+💾 Step 3: Instance Storage Options
+1. EBS – Elastic Block Storage
+Persistent storage
+
+Continues even if the instance is stopped
+
+2. EC2 Instance Store (Volume)
+Also called DAS (Direct Attached Storage)
+
+Temporary – If the instance is stopped, the storage is lost
+
+⚠️ If your EC2 instance is terminated or stopped, Instance Store volumes are deleted by default.
+
+⚙️ Step 4: Configure Instance Details
+1. Number of Instances
+You can specify how many EC2 instances to launch
+
+Note: You cannot launch unlimited instances due to AWS account limits
+
+2. Purchasing Options
+Choose Spot Instances for cost efficiency
+
+📝 Spot Instances are ideal for:
+
+Short-term workloads
+
+Not suitable for critical workloads (can be terminated anytime)
+
+---------------------------------------
+
+   *Step-by-Step: EC2 Advanced Configuration (Part 3)*
+
+🔹 1. EC2 Instance Reservation
+You always reserve at least 1 or more baseline instances.
+
+This acts as your default compute power.
+
+💲 2. EC2 Purchasing Options
+🅰️ On-Demand Instances
+Ideal for users who prefer:
+
+No long-term commitment
+
+No upfront payment
+
+Offers flexibility and pay-as-you-go pricing.
+
+Good for short-term or unpredictable workloads.
+
+🅱️ Spot Instances
+Suitable for:
+
+Applications with flexible start/end times
+
+Workloads that are interruptible
+
+Cheapest option — Feasible only when very low compute prices are acceptable.
+
+May be terminated anytime if AWS needs the capacity.
+
+🔁 3. Persistent Requests
+Automatically and continuously checks EC2 for instance availability.
+
+Useful when trying to launch Spot Instances that may not be immediately available.
+
+🧩 4. Placement Groups
+📦 What are they?
+Logical groupings of EC2 instances used to influence instance placement strategy across hardware.
+
+🔍 On-premises Comparison:
+If you manage your own data center (DC), you control:
+
+Rack placement
+
+Network topology
+
+Physical server location
+
+Similarly, AWS lets you choose placement strategies based on your workload.
+
+🗣️ How it works:
+"Tell AWS your strategy and workload requirements — e.g., high network throughput, low latency, redundancy, or high availability — and AWS will deploy your instances accordingly."
+
+🏁 Example Use Cases:
+Cluster Placement Group: For low latency & high network throughput
+
+Partition Group: For large-scale distributed systems
+
+Spread Group: For high availability and fault isolation
+
+------------------------------------------------------------
+
+  *Step-by-Step: EC2 Placement Group Strategies (Part 4)*
+
+📌 What is a Placement Strategy?
+Placement strategies in EC2 are used to control how your instances are physically deployed across AWS infrastructure to meet performance, availability, or fault tolerance goals.
+
+🔢 There are 3 Types of Placement Strategies:
+1️⃣ Cluster Placement Group
+🧱 Definition: Places instances close together within a single Availability Zone (AZ).
+
+📡 Purpose: Achieve low latency and high network throughput.
+
+⚙️ Ideal for:
+
+High-performance computing (HPC)
+
+Big data workloads
+
+Real-time applications
+
+📶 Example Characteristics:
+Deployed on the same rack
+
+Up to 10 Gbps or more network throughput between instances
+
+2️⃣ Spread Placement Group
+🛡️ Definition: Spreads instances across multiple AZs or racks to reduce the risk of simultaneous hardware failures.
+
+🚨 Purpose: Provide high availability and fault tolerance.
+
+🧠 Ideal for:
+
+Critical workloads that must not share the same hardware
+
+Small number of instances needing maximum isolation
+
+📍 Notes:
+Each instance is placed on distinct underlying hardware
+
+Helps prevent impact from rack-level or AZ-level failures
+
+3️⃣ Partition Placement Group
+📦 Definition: Divides instances into logical partitions, with each partition placed on isolated sets of racks (hardware).
+
+🎯 Purpose: Control instance placement to limit failure impact to a single partition.
+
+📈 Ideal for:
+
+Large-scale distributed systems (e.g., HDFS, Cassandra)
+
+Systems needing fault containment
+
+🔄 Example:
+If one partition fails, the others continue to operate independently.
+
+Each partition is mapped to one or more Availability Zones.
+
+------------------------------------------------
+
+*Step-by-Step: EC2 Launch Settings & Storage Options (Part 5)*
+
+🔄 5. Shutdown Behavior
+Define what happens when an instance is shut down from the OS or console.
+
+🟢 Common Option:
+Stop: Instance is halted but not terminated
+
+🛑 6. Enable Termination Protection
+✅ Prevents accidental termination of your EC2 instance
+
+You must manually disable this before deleting the instance
+
+🏠 7. Tenancy
+Defines where and how your EC2 instance is hosted.
+
+🔹 Options:
+Shared (default) – Runs on shared hardware
+
+Dedicated Host – Physical server fully dedicated to you
+
+Dedicated Instance – Your instance runs on isolated hardware
+
+📝 8. User Data
+Used to run commands/scripts automatically during the first boot of the instance.
+
+📄 Input Options:
+As text or as file
+
+🧠 Use Case:
+Install packages, run startup scripts, or configure system behavior
+
+Executes only once at the time of the first launch
+
+bash
+Copy
+Edit
+#!/bin/bash
+apt update && apt install nginx -y
+💾 A) Add Storage Configuration
+🔍 Key Storage Terms:
+Term	Meaning
+Volume Type	SSD or HDD (e.g., gp2, io1, st1)
+Snapshot	Create volume from existing backup
+Size	Volume size in GB
+IOPS	Input/Output Operations per Second
+Throughput	Data transfer rate (MB/s)
+
+🧱 Types of Volumes:
+Root volume – Holds the OS
+
+EBS (Elastic Block Store) – Persistent data storage
+
+🧹 Delete on Termination
+☑️ Option to automatically delete volumes when the instance is terminated.
+
+If unchecked, the volume remains and can be reused or manually deleted.
+
+This completes your comprehensive EC2 instance launch and configuration documentation.
+
+
+
+-------------------------------------------
+
+
+
 
