@@ -1,0 +1,52 @@
+Hadoop 1.2.1 link :-
+https://archive.apache.org/dist/hadoop/common/hadoop-1.2.1/hadoop-1.2.1-bin.tar.gz
+
+---------------------------------------------------------------
+First you have configure hosts file. for ssh server 
+
+1) vi /etc/hostst
+|
+|___> 127.127.127.127 www.akash.com akash      (save the configuration)
+
+2) go to .ssh folder and genrate ssh-keygen for direct access of server.
+
+-> $ ssh-keygen     ----> hit enter
+
+3) Then copy the genrated key into authorized_keys
+|
+|__> $ ls
+|
+|__> authorized_keys  id_rsa  id_rsa_pub   know_hosts    ----->(id_rsa ->lock, id_rsa_pub --> Key) you have to append key into authorized file.
+
+4) $ cat id_rsa_pub >> authorized
+
+Now you have directly connect with server without using key.
+
+5) $sudo apt update
+
+6) $sudo apt-get install openjdk-8-jdk -y   
+
+7) Then download hadoop 
+|
+|__> $wget https://archive.apache.org/dist/hadoop/common/hadoop-1.2.1/hadoop-1.2.1.tar.gz
+
+8) Then uncommpress the file
+|
+|__> $tar -zxvf <file_name you have to download>
+
+9) Then move hadoop-1.2.1 file into below path and change the name hadoop
+|
+|__> $sudo mv hadoop-1.2.1 /usr/local/hadoop
+
+------------------------------------------------------------
+10) Then configure .bashrc file
+|
+|__> $sudo vi .bashrc
+|-----							
+|Go down to the bottom and write this comments	
+							
+export HADOOP_PREFIX=/usr/local/hadoop/							
+export PATH=$PATH:$HADOOP_PREFIX/bin							
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64	
+export PATH=$PATH:$JAVA_HOME							
+|_______________________________________________________
