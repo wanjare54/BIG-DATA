@@ -1,0 +1,63 @@
+1)sudo vi /usr/local/hadoop/conf/hadoop-env.sh
+
+ Paste the commands in the mentioned area as per the below image
+
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+fully distrubited when you copy both:-
+export HADOOP_OPTS=-Djava.net.preferIPV4Stack=true
+
+----------------------------------------------------------
+2)sudo vi /usr/local/hadoop/conf/core-site.xml:   ----- (impact NameNode)
+
+<configuration>
+    <property>
+        <name>fs.default.name</name>
+        <value>hdfs://localhost:9000</value>
+    </property>
+
+
+ <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/usr/local/hadoop/HDFS</value>
+    </property>
+</configuration>
+
+---------------------------------
+3) sudo vi /usr/local/hadoop/conf/hdfs-site.xml. ----------->(impact datanode)
+
+<property>
+<name>dfs.replication</name>
+<value>1</value>
+</property>
+----------------------------------------------------------
+4)sudo vi /usr/local/hadoop/conf/mapred-site.xml  :----(impact JobTracker)
+
+<configuration>
+    <property>
+        <name>mapred.job.tracker</name>
+        <value>hdfs://localhost:9001</value>
+    </property>
+</configuration>
+
+====================================
+make dir
+
+mkdir /usr/local/hadoop/tmp
+
+-------------------------------------------------------------
+5)sudo vi /usr/local/hadoop/conf/master    :---------(Impact SecondaryNameNode)
+
+(note :-remove localhost and paste server name)
+
+vishal
+
+----------------------------------------------------------------
+
+5)sudo vi /usr/local/hadoop/conf/slaves    :---------(Impact SecondaryNameNode)
+
+(note :-remove localhost and paste server name)
+
+vishal
+
+---------------------------------------------------------------
